@@ -1,3 +1,4 @@
+// Called functions from html document
 var quizEl = document.querySelector(".quiz");
 var timerEl = document.querySelector("#countdown");
 var questionEl = document.querySelector("#question");
@@ -10,12 +11,18 @@ var infoEl = document.querySelector("#info");
 var submitButtonEl = document.querySelector("#scoresubmit");
 var scoreBoardEl = document.querySelector("#scoreboard");
 
-var timeLeft = 90;
+// Global variables
+var timeLeft = 150;
 var questionIndex = 0;
 var userCorrectAnswers = 0;
 
-var scoreBoardList = [] ;
+// Scoreboard list function
+var scoreBoardList = [];
+if(localStorage.getItem("scoreBoardStringify") === null){
+    localStorage.setItem("scoreBoardStringify", JSON.stringify(scoreBoardList));
+}
 
+// Quiz questions
 var quizQuestion1 = {
     question: "Which of the following is used to make a static website into a dynamic one?",
     options: [" html", " http", " javascript", " css"],
@@ -46,24 +53,27 @@ var quizQuestion5 = {
     correctAnswer: 3
 };
 
-
+// Make invisible my submit button and user input section when user looking to questions
 hiddenEl.style.display = "none";
 highscoresEl.style.display = "none";
 userInput.style.display = "none";
 
+// Starting quiz 
 function startQuiz() {
     startEl.addEventListener("click", function () {
         quizEl.removeChild(startEl);
         quizEl.removeChild(infoEl);
         hiddenEl.style.display = "block";
         renderQuestion();
-        timeLeft = 90;
+        timeLeft = 150;
     });
 }
 
+// All questions var list
 var questionList = [quizQuestion1, quizQuestion2, quizQuestion3, quizQuestion4, quizQuestion5];
 //localStorage.setItem("questionListStringify", JSON.stringify(questionList));
 
+// Event listener for choosing answer
 function listenForAnswer(event) {
     var clickedButton = event.target;
     console.log(clickedButton);
@@ -97,6 +107,7 @@ function listenForAnswer(event) {
 
 }
 
+// Call questions with order
 function renderQuestion() {
     //   var questionList = JSON.parse(localStorage.getItem("questionListStringify"));
     questionEl.textContent = questionList[questionIndex].question;
@@ -108,6 +119,7 @@ function renderQuestion() {
     }
 }
 
+// Score submisson part for user
 function scoreSubmission() {
     var score = timeLeft + userCorrectAnswers * 20;
     alert("Your score is: " + score);
@@ -128,6 +140,7 @@ function scoreSubmission() {
     });
 }
 
+// tore submitted name and value, then shows to user
 function scoreBoardDisplay() {
     var storedScoreBoard = JSON.parse(localStorage.getItem("scoreBoardStringify"));
     // Render a new li for each past user with their score
@@ -145,6 +158,7 @@ function scoreBoardDisplay() {
 
 // renderQuestion();
 
+// Timer function which execute every 1 sec
 function countdown() {
     var timeInterval = setInterval(function () {
         if (timeLeft > 1) {
