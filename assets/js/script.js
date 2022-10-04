@@ -10,33 +10,33 @@ var questionIndex = 0;
 var userCorrectAnswers = 0;
 
 var quizQuestion1 = {
-    question: "Question1 ",
-    options: ["1-A ", "1-B", "1-C", "1-D"],
-    correctAnswer: 0
+    question: "Which of the following is used to make a static website into a dynamic one?",
+    options: [" html", " http", " javascript", " css"],
+    correctAnswer: 2
 };
 
 var quizQuestion2 = {
-    question: "Question2",
-    options: ["2-A ", "2-B", "2-C", "2-D"],
+    question: "Which of the following is a semantic html element?",
+    options: [" <header>", " <span>", " <div>", " None of the above"],
     correctAnswer: 0
 };
 
 var quizQuestion3 = {
-    question: "Question3",
-    options: ["3-A ", "3-B", "3-C", "3-D"],
-    correctAnswer: 0
+    question: "Which of the following prints 'Hello world!' in the JavaScript console?",
+    options: [" print('Hello world!');", " console.log(Hello world!)", " console.log('Hello world!');", " print(Hello world!)"],
+    correctAnswer: 2
 };
 
 var quizQuestion4 = {
-    question: "Question4",
-    options: ["4-A ", "4-B", "4-C", "4-D"],
-    correctAnswer: 0
+    question: "How do you find the minimum of x and y using JavaScript?",
+    options: [" min(x,y); ", " Math.min(x,y)", " Math.min(xy)", " min(xy);"],
+    correctAnswer: 1
 };
 
 var quizQuestion5 = {
-    question: "Question5",
-    options: ["5-A ", "5-B", "5-C", "5-D"],
-    correctAnswer: 0
+    question: "JavaScript is a _____-side programming language.",
+    options: [" client ", " server", " none", " both"],
+    correctAnswer: 3
 };
 
 
@@ -59,12 +59,7 @@ function listenForAnswer(event) {
     console.log(clickedButton);
     console.log(optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]);
 
-    if (questionIndex + 1 < questionList.length) {
-        questionIndex++;
-        renderQuestion();
-    } else {
-        hiddenEl.style.display = "none";
-    }
+   
 
     if (clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]) {
         userCorrectAnswers++;
@@ -81,6 +76,14 @@ function listenForAnswer(event) {
         // console.log("wrong");
         //return clickedButton.style.background;
     }
+
+    if (questionIndex + 1 < questionList.length) {
+        questionIndex++;
+        renderQuestion();
+    } else {
+        hiddenEl.style.display = "none";
+    }
+
 }
 
 function renderQuestion() {
