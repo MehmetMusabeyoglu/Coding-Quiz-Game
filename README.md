@@ -19,7 +19,7 @@ A quiz application with questions gauging the user's Javascript knowledge. When 
  </ul>
  
  ## Deployed Link
-[ N/A](https://mehmetmusabeyoglu.github.io/Coding-Quiz-Game/)
+[ Coding Quiz] (https://mehmetmusabeyoglu.github.io/Coding-Quiz-Game/)
  
  ## Credits
  N/A
