@@ -13,30 +13,35 @@
 <body>
     <div class="quiz">
         <h1>Coding Quiz</h1>
+        <h2 id="info"> You will have 90 sec to complete the quiz. Each wrong answer will deduct 15 sec and final score will be calculated as (time left) + 20*(correct answers).</h2>
         <button id="start">START</button>
         <div class="hidden">
             <h2 id="countdown"></h2>
             <div id="question">Choose A, B, C or D. </div>
             <ul id="options">
                 <li id="option0">
-                    <button> A  </button>
+                    <button> A </button>
                 </li>
                 <li id="option1">
-                    <button> B  </button>
+                    <button> B </button>
                 </li>
                 <li id="option2">
-                    <button> C  </button>
+                    <button> C </button>
                 </li>
                 <li id="option3">
-                    <button> D  </button>
+                    <button> D </button>
                 </li>
             </ul>
         </div>
-       
+        <form id="highscores" method="POST">
+            <label for="highscore-text">Your name: </label>
+            <input type="text" placeholder="Write your name" name="highscore-text" id="highscore-text" />
+            <button id = "scoresubmit"> Submit </button>
+        </form>
+        <ul id="scoreboard"></ul>
+
 
     </div>
-
-
 
 
 

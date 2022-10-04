@@ -4,10 +4,17 @@ var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
 var startEl = document.querySelector("#start");
 var hiddenEl = document.querySelector(".hidden");
+var highscoresEl = document.querySelector("#highscores");
+var userInput = document.querySelector("#highscore-text");
+var infoEl = document.querySelector("#info");
+var submitButtonEl = document.querySelector("#scoresubmit");
+var scoreBoardEl = document.querySelector("#scoreboard");
 
 var timeLeft = 90;
 var questionIndex = 0;
 var userCorrectAnswers = 0;
+
+var scoreBoardList = [] ;
 
 var quizQuestion1 = {
     question: "Which of the following is used to make a static website into a dynamic one?",
@@ -35,16 +42,19 @@ var quizQuestion4 = {
 
 var quizQuestion5 = {
     question: "JavaScript is a _____-side programming language.",
-    options: [" client ", " server", " none", " both"],
+    options: [" client ", " server", " style", " both client and server"],
     correctAnswer: 3
 };
 
 
 hiddenEl.style.display = "none";
+highscoresEl.style.display = "none";
+userInput.style.display = "none";
 
 function startQuiz() {
     startEl.addEventListener("click", function () {
         quizEl.removeChild(startEl);
+        quizEl.removeChild(infoEl);
         hiddenEl.style.display = "block";
         renderQuestion();
         timeLeft = 90;
@@ -59,7 +69,7 @@ function listenForAnswer(event) {
     console.log(clickedButton);
     console.log(optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]);
 
-   
+
 
     if (clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]) {
         userCorrectAnswers++;
@@ -82,6 +92,7 @@ function listenForAnswer(event) {
         renderQuestion();
     } else {
         hiddenEl.style.display = "none";
+        scoreSubmission();
     }
 
 }
@@ -98,11 +109,41 @@ function renderQuestion() {
 }
 
 function scoreSubmission() {
+    var score = timeLeft + userCorrectAnswers * 20;
+    alert("Your score is: " + score);
+    highscoresEl.style.display = "block";
+    userInput.style.display = "block";
+    submitButtonEl.addEventListener("click", function (event) {
+        event.preventDefault();
+        var scoreEntry = {
+            userName: userInput.value.trim(),
+            userScore: score
+        };
+        scoreBoardList = JSON.parse(localStorage.getItem("scoreBoardStringify"));
+        scoreBoardList.push(scoreEntry);
+        console.log(scoreBoardList);
+        localStorage.setItem("scoreBoardStringify", JSON.stringify(scoreBoardList));
+        console.log(scoreBoardList);
+        scoreBoardDisplay();
+    });
+}
 
+function scoreBoardDisplay() {
+    var storedScoreBoard = JSON.parse(localStorage.getItem("scoreBoardStringify"));
+    // Render a new li for each past user with their score
+    for (var i = 0; i < storedScoreBoard.length; i++) {
+        var storedScoreEntry = storedScoreBoard[i];
+
+        var li = document.createElement("li");
+        li.textContent = storedScoreEntry.userName + "'s score is ==> " + storedScoreEntry.userScore;
+        li.setAttribute("data-index", i);
+
+        scoreBoardEl.appendChild(li);
+    }
 }
 
 
-renderQuestion();
+// renderQuestion();
 
 function countdown() {
     var timeInterval = setInterval(function () {
