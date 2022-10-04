@@ -18,8 +18,8 @@ A quiz application with questions gauging the user's Javascript knowledge. When 
   <li><b>Google Chrome</b></li>
  </ul>
  
- ## Installation
- N/A
+ ## Deployed Link
+[ N/A](https://mehmetmusabeyoglu.github.io/Coding-Quiz-Game/)
  
  ## Credits
  N/A
