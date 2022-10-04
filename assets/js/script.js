@@ -2,9 +2,8 @@ var quizEl = document.querySelector(".quiz");
 var timerEl = document.querySelector("#countdown");
 var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
-// var buttonEl = document.querySelectorAll("button");
-// console.log(buttonEl);
-
+var startEl= document.querySelector("#start");
+var hiddenEl = document.querySelector(".hidden");
 
 var timeLeft = 90;
 var questionIndex = 0;
@@ -40,6 +39,18 @@ var quizQuestion5 = {
     correctAnswer: 0
 };
 
+
+hiddenEl.style.display = "none";
+
+function startQuiz(){
+    startEl.addEventListener("click", function() {
+        quizEl.removeChild(startEl);
+        hiddenEl.style.display = "block";
+        renderQuestion();
+        timeLeft = 90;
+    });
+}
+
 var questionList = [quizQuestion1, quizQuestion2, quizQuestion3, quizQuestion4, quizQuestion5];
 //localStorage.setItem("questionListStringify", JSON.stringify(questionList));
 
@@ -61,7 +72,8 @@ function listenForAnswer(event) {
         questionIndex++;
         renderQuestion();
     } else {
-        scoreSubmission();
+        hiddenEl.style.display = "none";
+        // scoreSubmission();
     }
 
     // console.log(element);
@@ -78,11 +90,12 @@ function renderQuestion() {
     }
 }
 
-function scoreSubmission() {
-    quizEl.removeChild(questionEl);
-    quizEl.removeChild(optionsEl);
-    quizEl.removeChild(timerEl);
-}
+// function scoreSubmission() {
+//     quizEl.removeChild(questionEl);
+//     quizEl.removeChild(optionsEl);
+//     quizEl.removeChild(timerEl);
+
+// }
 
 
 renderQuestion();
@@ -91,10 +104,6 @@ function countdown() {
     var timeInterval = setInterval(function () {
         if (timeLeft > 1) {
 
-            timerEl.textContent = timeLeft + ' seconds remaining';
-            timeLeft--;
-
-        } else if (timeLeft === 1) {
             timerEl.textContent = timeLeft + ' second remaining';
             timeLeft--;
 
@@ -103,9 +112,9 @@ function countdown() {
 
             clearInterval(timeInterval);
 
-            displayResult();
         }
     }, 1000);
 }
 
 countdown();
+startQuiz();

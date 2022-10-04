@@ -13,6 +13,14 @@ h1{
     font-size: 50px;
 }
 
+#start{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: green;
+    font-size: 20px;
+}
+
 h2{
     display: flex;
     justify-content: space-evenly;
