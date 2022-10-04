@@ -2,7 +2,7 @@ var quizEl = document.querySelector(".quiz");
 var timerEl = document.querySelector("#countdown");
 var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
-var startEl= document.querySelector("#start");
+var startEl = document.querySelector("#start");
 var hiddenEl = document.querySelector(".hidden");
 
 var timeLeft = 90;
@@ -42,8 +42,8 @@ var quizQuestion5 = {
 
 hiddenEl.style.display = "none";
 
-function startQuiz(){
-    startEl.addEventListener("click", function() {
+function startQuiz() {
+    startEl.addEventListener("click", function () {
         quizEl.removeChild(startEl);
         hiddenEl.style.display = "block";
         renderQuestion();
@@ -58,26 +58,29 @@ function listenForAnswer(event) {
     var clickedButton = event.target;
     console.log(clickedButton);
     console.log(optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]);
-    if (clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]) {
-        userCorrectAnswers++;
-        console.log("correct");
-    }
-    else {
-        timeLeft = timeLeft - 15;
-        console.log("wrong");
-    }
 
-
-    if (questionIndex+1 < questionList.length) {
+    if (questionIndex + 1 < questionList.length) {
         questionIndex++;
         renderQuestion();
     } else {
         hiddenEl.style.display = "none";
-        // scoreSubmission();
     }
 
-    // console.log(element);
-    // console.log("I was clicked");
+    if (clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]) {
+        userCorrectAnswers++;
+        // clickedButton.style.background = "green";
+        // console.log( clickedButton.style.background);     
+        alert("CORRECT");
+        // console.log("correct");
+        //return clickedButton.style.background;
+    }
+    else {
+        timeLeft = timeLeft - 15;
+        //  clickedButton.style.background = "red";
+        alert("FALSE");
+        // console.log("wrong");
+        //return clickedButton.style.background;
+    }
 }
 
 function renderQuestion() {
@@ -87,15 +90,13 @@ function renderQuestion() {
         optionsEl.children[i].childNodes[2].textContent = questionList[questionIndex].options[i];
         optionsEl.children[i].childNodes[1].removeEventListener("click", listenForAnswer);
         optionsEl.children[i].childNodes[1].addEventListener("click", listenForAnswer);
+        // optionsEl.children[i].childNodes[1].style.background = "bisque";
     }
 }
 
-// function scoreSubmission() {
-//     quizEl.removeChild(questionEl);
-//     quizEl.removeChild(optionsEl);
-//     quizEl.removeChild(timerEl);
+function scoreSubmission() {
 
-// }
+}
 
 
 renderQuestion();
@@ -108,10 +109,11 @@ function countdown() {
             timeLeft--;
 
         } else {
-            timerEl.textContent = '';
+            timerEl.textContent = 'Time is up!';
 
             clearInterval(timeInterval);
 
+            scoreSubmission();
         }
     }, 1000);
 }
