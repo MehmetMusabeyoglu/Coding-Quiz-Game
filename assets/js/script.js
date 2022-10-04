@@ -1,12 +1,14 @@
+var quizEl = document.querySelector(".quiz");
 var timerEl = document.querySelector("#countdown");
 var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
 // var buttonEl = document.querySelectorAll("button");
 // console.log(buttonEl);
 
+
 var timeLeft = 90;
 var questionIndex = 0;
-//var userClicked = false;
+var userCorrectAnswers = 0;
 
 var quizQuestion1 = {
     question: "Question1 ",
@@ -46,7 +48,7 @@ function listenForAnswer(event) {
     console.log(clickedButton);
     console.log(optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]);
     if (clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]) {
-        timeLeft = timeLeft + 15;
+        userCorrectAnswers++;
         console.log("correct");
     }
     else {
@@ -54,14 +56,14 @@ function listenForAnswer(event) {
         console.log("wrong");
     }
 
-    
-    if(questionIndex < questionList.length){
+
+    if (questionIndex+1 < questionList.length) {
         questionIndex++;
         renderQuestion();
-    }else{
+    } else {
         scoreSubmission();
     }
-   
+
     // console.log(element);
     // console.log("I was clicked");
 }
@@ -76,26 +78,11 @@ function renderQuestion() {
     }
 }
 
-// function listenForAnswer(questionIndex){
-//     for (var i = 0; i < 4; i++) {
-//             optionsEl.children[i].childNodes[1].addEventListener("click", function (event) {
-//             var clickedButton = event.target;
-//             //console.log(clickedButton);
-//             //console.log(optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]);
-//             if(clickedButton === optionsEl.children[questionList[questionIndex].correctAnswer].childNodes[1]){
-//                 timeLeft=timeLeft+15;
-//                 console.log("correct");
-//             }
-//             else{
-//                 timeLeft=timeLeft-15;
-//                 console.log("wrong");
-//             }
-//             userClicked = True;
-//             // console.log(element);
-//             // console.log("I was clicked");
-//         });
-//     }
-// }
+function scoreSubmission() {
+    quizEl.removeChild(questionEl);
+    quizEl.removeChild(optionsEl);
+    quizEl.removeChild(timerEl);
+}
 
 
 renderQuestion();
@@ -122,12 +109,3 @@ function countdown() {
 }
 
 countdown();
-
-// for(var questionIndex=0; questionIndex<5; questionIndex++){
-//     renderQuestion(questionIndex);
-//     listenForAnswer(questionIndex);
-//     // while(!userClicked){
-
-//     // }
-//     // userClicked = false;
-// }
